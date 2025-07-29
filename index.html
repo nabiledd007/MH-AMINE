@@ -1,741 +1,141 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern CV Slider - KANZ ROTBI MOHAMED</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Name Counter App</title>
     <style>
-        :root {
-            --primary: #4361ee;
-            --primary-light: #4895ef;
-            --secondary: #3f37c9;
-            --accent: #f72585;
-            --dark: #1a1a2e;
-            --light: #f8f9fa;
-            --gray: #6c757d;
-            --light-gray: #e9ecef;
-            --card-bg: #ffffff;
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 15px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        }
-
         body {
-            background-color: #f8f9fa;
-            color: var(--dark);
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
+            font-family: Arial, sans-serif;
+            max-width: 600px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 20px;
+            background-color: #f5f5f5;
         }
-
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 4rem 2rem 6rem;
-            text-align: center;
-            position: relative;
-            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
-            margin-bottom: -3rem;
-        }
-
-        .profile-container {
-            position: relative;
-            z-index: 10;
-            margin: 0 auto;
-            width: fit-content;
-        }
-
-        .profile-pic {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid white;
-            box-shadow: var(--shadow);
-            transform: translateY(50%);
-            background-color: white;
-        }
-
-        .header-content {
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-            margin: 0 auto;
-            padding-top: 4rem;
-        }
-
         h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .tagline {
-            font-size: 1.25rem;
-            opacity: 0.9;
-            margin-bottom: 1.5rem;
-        }
-
-        .contact-info {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        .contact-link {
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .contact-link:hover {
-            color: var(--accent);
-            transform: translateY(-2px);
-        }
-
-        .main-content {
-            display: flex;
-            flex-direction: column;
-            gap: 3rem;
-            margin-top: 5rem;
-        }
-
-        .section {
-            width: 100%;
-        }
-
-        .section-title {
-            font-size: 1.8rem;
-            font-weight: 600;
-            margin-bottom: 2rem;
-            color: var(--dark);
             text-align: center;
-            position: relative;
+            color: #333;
         }
-
-        .section-title::after {
-            content: "";
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            border-radius: 2px;
-        }
-
-        /* Modern Slider Styles */
-        .slider-container {
-            position: relative;
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .slider-track {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-            margin-bottom: 2rem;
-        }
-
-        .slider-track::-webkit-scrollbar {
-            display: none;
-        }
-
-        .slide {
-            scroll-snap-align: start;
-            flex-shrink: 0;
-            width: 100%;
-            background: white;
-            border-radius: 16px;
-            box-shadow: var(--shadow);
-            padding: 2.5rem;
-            transform-origin: center center;
-            transform: scale(0.95);
-            transition: transform 0.5s ease;
-            opacity: 0.7;
-        }
-
-        .slide.active {
-            transform: scale(1);
-            opacity: 1;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .slide h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--primary);
-        }
-
-        .slide .company {
-            color: var(--accent);
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .slide .company i {
-            font-size: 0.9rem;
-        }
-
-        .slide .date {
-            color: var(--gray);
-            font-size: 0.9rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .slide .date i {
-            color: var(--primary-light);
-        }
-
-        .slide ul {
-            list-style-type: none;
-        }
-
-        .slide li {
-            position: relative;
-            padding-left: 1.8rem;
-            margin-bottom: 0.8rem;
-            line-height: 1.6;
-        }
-
-        .slide li::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 0.6rem;
-            width: 10px;
-            height: 10px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 50%;
-        }
-
-        /* Slider Navigation */
-        .slider-nav {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1rem;
-            margin-top: 1rem;
-            padding-bottom: 1rem;
-        }
-
-        .slider-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: white;
-            color: var(--primary);
-            border: 2px solid var(--light-gray);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .slider-btn:hover {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-            transform: scale(1.1);
-        }
-
-        .slider-dots {
-            display: flex;
-            justify-content: center;
-            gap: 0.8rem;
-        }
-
-        .slider-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: var(--light-gray);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .slider-dot.active {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            transform: scale(1.2);
-        }
-
-        /* Skills Section */
-        .skills-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .skill-category {
+        .name-container {
             background-color: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-
-        .skill-category h4 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
+        .name-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 0.5rem;
+            margin-bottom: 10px;
         }
-
-        .skill-items {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
+        .name {
+            font-size: 20px;
+            font-weight: bold;
         }
-
-        .skill-item {
-            background: linear-gradient(135deg, var(--primary-light), var(--primary));
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        /* Interests Section */
-        .interests-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .interest-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.8rem;
-            width: 120px;
-        }
-
-        .interest-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            box-shadow: var(--shadow);
-        }
-
-        .interest-name {
-            font-weight: 500;
+        .total {
+            font-size: 20px;
+            min-width: 30px;
             text-align: center;
         }
-
-        /* Download Button */
-        .download-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.8rem;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+        button {
+            padding: 8px 15px;
             border: none;
+            border-radius: 4px;
             cursor: pointer;
-            margin: 2rem auto 0;
-            box-shadow: var(--shadow-lg);
+            font-weight: bold;
+            transition: background-color 0.2s;
         }
-
-        .download-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        .btn-0 {
+            background-color: #e0e0e0;
         }
-
-        footer {
-            text-align: center;
-            padding: 3rem 2rem;
-            margin-top: 4rem;
-            color: var(--gray);
-            font-size: 0.9rem;
-            background-color: white;
+        .btn-1 {
+            background-color: #a5d6a7;
         }
-
-        @media (max-width: 768px) {
-            header {
-                padding: 3rem 1.5rem 5rem;
-                clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
-            }
-
-            .profile-pic {
-                width: 120px;
-                height: 120px;
-            }
-
-            h1 {
-                font-size: 2rem;
-            }
-
-            .tagline {
-                font-size: 1.1rem;
-            }
-
-            .slider-container {
-                padding: 0;
-            }
-
-            .slide {
-                padding: 1.8rem;
-            }
-
-            .skills-container {
-                grid-template-columns: 1fr;
-            }
-
-            .slider-btn {
-                width: 36px;
-                height: 36px;
-                font-size: 0.9rem;
-            }
-
-            .interests-container {
-                gap: 1.5rem;
-            }
-
-            .interest-item {
-                width: 100px;
-            }
+        .btn-minus1 {
+            background-color: #ef9a9a;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+        .reset-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        .reset-btn:hover {
+            background-color: #555;
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="profile-container">
-            <img src="https://raw.githubusercontent.com/nabiledd007/NbPs/main/amine.jpg" alt="Profile Picture" class="profile-pic" onerror="this.src='https://via.placeholder.com/150'">
-        </div>
-        <div class="header-content">
-            <h1>KANZ ROTBI MOHAMED</h1>
-            <p class="tagline">Étudiant en Master 1 Gestion de la Production, Logistique, Achats</p>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>Dunkerque, France</span>
-                </div>
-                <div class="contact-item">
-                    <a href="mailto:fiddlermohamed@gmail.com" class="contact-link">
-                        <i class="fas fa-envelope"></i>
-                        <span>fiddlermohamed@gmail.com</span>
-                    </a>
-                </div>
-                <div class="contact-item">
-                    <a href="https://www.linkedin.com/in/mohamed-el-kanz-rotbi-b3b28229b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="contact-link">
-                        <i class="fab fa-linkedin"></i>
-                        <span>LinkedIn</span>
-                    </a>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-phone"></i>
-                    <span>+33 6 12 34 56 78</span>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <div class="container">
-        <div class="main-content">
-            <section class="section">
-                <h2 class="section-title">Expériences Professionnelles</h2>
-                
-                <div class="slider-container">
-                    <div class="slider-track" id="sliderTrack">
-                        <!-- Slide 1 -->
-                        <div class="slide active">
-                            <h3>Stage en supply chain</h3>
-                            <p class="company"><i class="fas fa-building"></i> Fujikura automotive Tanger (Maroc)</p>
-                            <p class="date"><i class="far fa-calendar-alt"></i> 07/2025 - 09/2025</p>
-                            <ul>
-                                <li>Analyse et Optimisation des Processus de la supply chain (du fournisseur au client final)</li>
-                                <li>Planification et Prévision, approvisionnement, gestion des Stocks</li>
-                                <li>Production, logistique et distribution</li>
-                                <li>Systèmes d'Information (ERP, WMS, MRP, etc.)</li>
-                                <li>Gestion des retours, support & Reporting</li>
-                            </ul>
-                        </div>
-                        
-                        <!-- Slide 2 -->
-                        <div class="slide">
-                            <h3>Stage alterné en modélisation</h3>
-                            <p class="company"><i class="fas fa-university"></i> Laboratoire de recherche ULCO, Dunkerque</p>
-                            <p class="date"><i class="far fa-calendar-alt"></i> 01/2025 - 06/2025</p>
-                            <ul>
-                                <li>Analyse et modélisation des transports et des politiques de mobilité</li>
-                                <li>Modélisation des réseaux de transport avec fichiers GTFS</li>
-                                <li>Evaluation et traitement de l'offre de transport public</li>
-                                <li>Organisation de la Rencontres Francophones Transport Mobilité (RFTM 2025)</li>
-                            </ul>
-                        </div>
-                        
-                        <!-- Slide 3 -->
-                        <div class="slide">
-                            <h3>Stage en comptabilité</h3>
-                            <p class="company"><i class="fas fa-briefcase"></i> Vanhaelinghem, Téteghem-Coudekerque</p>
-                            <p class="date"><i class="far fa-calendar-alt"></i> 04/2024 - 06/2024</p>
-                            <ul>
-                                <li>Saisie comptable des opérations comptables</li>
-                                <li>Analyse des comptes et des données financières</li>
-                                <li>Utilisation de logiciels comptables</li>
-                                <li>Contrôle et réalisation des factures / Lettrage</li>
-                            </ul>
-                        </div>
-                        
-                        <!-- Slide 4 -->
-                        <div class="slide">
-                            <h3>Intérimaire Merchandising</h3>
-                            <p class="company"><i class="fas fa-store"></i> Plopsaland de Panne, Belgique</p>
-                            <p class="date"><i class="far fa-calendar-alt"></i> 2023 - Présent</p>
-                            <ul>
-                                <li>Encaissement et gestion des transactions</li>
-                                <li>Gestion des stocks, suivi des inventaires</li>
-                                <li>Organisation des rayons</li>
-                                <li>Service client, résolution des problèmes</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="slider-nav">
-                        <button class="slider-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
-                        <div class="slider-dots" id="sliderDots">
-                            <div class="slider-dot active" data-index="0"></div>
-                            <div class="slider-dot" data-index="1"></div>
-                            <div class="slider-dot" data-index="2"></div>
-                            <div class="slider-dot" data-index="3"></div>
-                        </div>
-                        <button class="slider-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
-                    </div>
-                </div>
-            </section>
-            
-            <section class="section">
-                <h2 class="section-title">Compétences</h2>
-                <div class="skills-container">
-                    <div class="skill-category">
-                        <h4><i class="fas fa-network-wired"></i> Supply Chain</h4>
-                        <div class="skill-items">
-                            <span class="skill-item">Optimisation</span>
-                            <span class="skill-item">Planification</span>
-                            <span class="skill-item">Gestion de stocks</span>
-                            <span class="skill-item">Analyse</span>
-                        </div>
-                    </div>
-                    
-                    <div class="skill-category">
-                        <h4><i class="fas fa-truck"></i> Logistique</h4>
-                        <div class="skill-items">
-                            <span class="skill-item">Distribution</span>
-                            <span class="skill-item">Transport</span>
-                            <span class="skill-item">Coordination</span>
-                            <span class="skill-item">Organisation</span>
-                        </div>
-                    </div>
-                    
-                    <div class="skill-category">
-                        <h4><i class="fas fa-laptop-code"></i> Systèmes</h4>
-                        <div class="skill-items">
-                            <span class="skill-item">ERP</span>
-                            <span class="skill-item">WMS</span>
-                            <span class="skill-item">MRP</span>
-                            <span class="skill-item">GTFS</span>
-                        </div>
-                    </div>
-                    
-                    <div class="skill-category">
-                        <h4><i class="fas fa-chart-line"></i> Analyse</h4>
-                        <div class="skill-items">
-                            <span class="skill-item">Modélisation</span>
-                            <span class="skill-item">Reporting</span>
-                            <span class="skill-item">Data Visualisation</span>
-                            <span class="skill-item">Prévision</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <section class="section">
-                <h2 class="section-title">Centres d'Intérêts</h2>
-                <div class="interests-container">
-                    <div class="interest-item">
-                        <div class="interest-icon">
-                            <i class="fas fa-globe-europe"></i>
-                        </div>
-                        <span class="interest-name">Voyage</span>
-                    </div>
-                    <div class="interest-item">
-                        <div class="interest-icon">
-                            <i class="fas fa-futbol"></i>
-                        </div>
-                        <span class="interest-name">Football</span>
-                    </div>
-                    <div class="interest-item">
-                        <div class="interest-icon">
-                            <i class="fas fa-user-ninja"></i>
-                        </div>
-                        <span class="interest-name">Karaté</span>
-                    </div>
-                    <div class="interest-item">
-                        <div class="interest-icon">
-                            <i class="fas fa-book"></i>
-                        </div>
-                        <span class="interest-name">Lecture</span>
-                    </div>
-                </div>
-            </section>
-            
-            <a href="https://drive.google.com/file/d/15StYuf0iHFXAGhlhKAvSITrkgfxjm0XJ/view?usp=drivesdk" class="download-btn" id="downloadBtn" target="_blank">
-                <i class="fas fa-download"></i>
-                Télécharger le CV complet
-            </a>
-        </div>
+    <h1>Name Counter App</h1>
+    
+    <div id="app">
+        <!-- Names will be added here by JavaScript -->
     </div>
-
-    <footer>
-        &copy; 2025 KANZ ROTBI MOHAMED. Tous droits réservés.
-    </footer>
+    
+    <button class="reset-btn" id="resetBtn">Reset All</button>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const sliderTrack = document.getElementById('sliderTrack');
-            const slides = document.querySelectorAll('.slide');
-            const dots = document.querySelectorAll('.slider-dot');
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            let currentIndex = 0;
-            const totalSlides = slides.length;
-            let slideInterval;
-
-            // Initialize slider
-            function updateSlider() {
-                // Update slides
-                slides.forEach((slide, index) => {
-                    slide.classList.remove('active');
-                    if (index === currentIndex) {
-                        slide.classList.add('active');
-                    }
-                });
-                
-                // Update dots
-                dots.forEach((dot, index) => {
-                    dot.classList.toggle('active', index === currentIndex);
-                });
-                
-                // Scroll to active slide
-                slides[currentIndex].scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'nearest',
-                    inline: 'center'
-                });
+            const names = ['IMANE', 'AMINE', 'NABIL'];
+            const appContainer = document.getElementById('app');
+            
+            // Create name containers
+            names.forEach(name => {
+                const nameContainer = document.createElement('div');
+                nameContainer.className = 'name-container';
+                nameContainer.innerHTML = `
+                    <div class="name-header">
+                        <div class="name">${name}</div>
+                        <div class="total" id="total-${name}">0</div>
+                    </div>
+                    <div class="buttons">
+                        <button class="btn-0" data-name="${name}" data-value="0">0</button>
+                        <button class="btn-1" data-name="${name}" data-value="1">+1</button>
+                        <button class="btn-minus1" data-name="${name}" data-value="-1">-1</button>
+                    </div>
+                `;
+                appContainer.appendChild(nameContainer);
+            });
+            
+            // Initialize totals
+            const totals = {};
+            names.forEach(name => {
+                totals[name] = 0;
+            });
+            
+            // Update total display
+            function updateTotal(name) {
+                document.getElementById(`total-${name}`).textContent = totals[name];
             }
-
-            function goToSlide(index) {
-                currentIndex = (index + totalSlides) % totalSlides;
-                updateSlider();
-                resetInterval();
-            }
-
-            function nextSlide() {
-                goToSlide(currentIndex + 1);
-            }
-
-            function prevSlide() {
-                goToSlide(currentIndex - 1);
-            }
-
-            function resetInterval() {
-                clearInterval(slideInterval);
-                slideInterval = setInterval(nextSlide, 5000);
-            }
-
-            // Dot click event
-            dots.forEach(dot => {
-                dot.addEventListener('click', function() {
-                    const index = parseInt(this.getAttribute('data-index'));
-                    goToSlide(index);
+            
+            // Handle button clicks
+            document.querySelectorAll('.buttons button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const name = this.getAttribute('data-name');
+                    const value = parseInt(this.getAttribute('data-value'));
+                    totals[name] += value;
+                    updateTotal(name);
                 });
             });
-
-            // Button events
-            nextBtn.addEventListener('click', nextSlide);
-            prevBtn.addEventListener('click', prevSlide);
-
-            // Keyboard navigation
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'ArrowRight') {
-                    nextSlide();
-                } else if (e.key === 'ArrowLeft') {
-                    prevSlide();
-                }
+            
+            // Handle reset button
+            document.getElementById('resetBtn').addEventListener('click', function() {
+                names.forEach(name => {
+                    totals[name] = 0;
+                    updateTotal(name);
+                });
             });
-
-            // Auto-rotate slider
-            resetInterval();
-
-            // Pause on hover
-            sliderTrack.addEventListener('mouseenter', () => {
-                clearInterval(slideInterval);
-            });
-
-            sliderTrack.addEventListener('mouseleave', resetInterval);
-
-            // Handle image error
-            const profilePic = document.querySelector('.profile-pic');
-            profilePic.addEventListener('error', function() {
-                this.src = 'https://via.placeholder.com/150';
-            });
-
-            // Initial setup
-            updateSlider();
         });
     </script>
 </body>
