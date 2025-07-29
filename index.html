@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Name Counter App</title>
+    <title>Name Counter App with Timer</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -63,32 +63,68 @@
             opacity: 0.8;
         }
         .reset-btn {
-            display: block;
-            width: 100%;
-            padding: 10px;
             background-color: #333;
             color: white;
             font-size: 16px;
-            margin-top: 20px;
         }
         .reset-btn:hover {
             background-color: #555;
         }
+        .timer-btn {
+            background-color: #4a89dc;
+            color: white;
+            font-size: 16px;
+        }
+        .timer-btn:hover {
+            background-color: #5d9cec;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .timer-display {
+            text-align: center;
+            font-size: 24px;
+            margin: 20px 0;
+            font-weight: bold;
+            color: #333;
+        }
+        .blink {
+            animation: blink-animation 1s steps(5, start) infinite;
+        }
+        @keyframes blink-animation {
+            to {
+                visibility: hidden;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>Name Counter App</h1>
+    <h1>Name Counter App with Timer</h1>
     
     <div id="app">
         <!-- Names will be added here by JavaScript -->
     </div>
     
-    <button class="reset-btn" id="resetBtn">Reset All</button>
+    <div class="timer-display" id="timerDisplay"></div>
+    
+    <div class="action-buttons">
+        <button class="timer-btn" id="timerBtn">Start 15s Counter</button>
+        <button class="reset-btn" id="resetBtn">Reset All</button>
+    </div>
+
+    <audio id="timerSound" src="https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3" preload="auto"></audio>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const names = ['IMANE', 'AMINE', 'NABIL'];
             const appContainer = document.getElementById('app');
+            const timerBtn = document.getElementById('timerBtn');
+            const timerDisplay = document.getElementById('timerDisplay');
+            const timerSound = document.getElementById('timerSound');
+            let timerInterval;
+            let isTimerRunning = false;
             
             // Create name containers
             names.forEach(name => {
@@ -135,6 +171,32 @@
                     totals[name] = 0;
                     updateTotal(name);
                 });
+            });
+            
+            // Timer functionality
+            timerBtn.addEventListener('click', function() {
+                if (isTimerRunning) return;
+                
+                isTimerRunning = true;
+                let seconds = 15;
+                timerDisplay.textContent = seconds;
+                timerDisplay.classList.add('blink');
+                
+                timerInterval = setInterval(function() {
+                    seconds--;
+                    timerDisplay.textContent = seconds;
+                    
+                    if (seconds <= 0) {
+                        clearInterval(timerInterval);
+                        timerSound.play();
+                        timerDisplay.textContent = "TIME'S UP!";
+                        setTimeout(function() {
+                            timerDisplay.classList.remove('blink');
+                            timerDisplay.textContent = "";
+                            isTimerRunning = false;
+                        }, 3000);
+                    }
+                }, 1000);
             });
         });
     </script>
